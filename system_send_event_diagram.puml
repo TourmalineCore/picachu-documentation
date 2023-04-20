@@ -1,30 +1,32 @@
 @startuml
-[*] --> SaveNewPhoto : EventNewPhoto
-SaveNewPhoto --> ProcessColorModel: EventNew\nPhotoSave
-SaveNewPhoto --> ProcessObjectModel : EventNew\nPhotoSave
-SaveNewPhoto --> ProcessEmotionModel : EventNew\nPhotoSave
+[*] --> SaveNewPhoto : EventNew\nPhotoReceived
+SaveNewPhoto --> ProcessColorModel: EventNew\nPhotoSaved
+SaveNewPhoto --> ProcessObjectModel : EventNew\nPhotoSaved
+SaveNewPhoto --> ProcessEmotionModel : EventNew\nPhotoSaved
 
-ProcessColorModel --> SaveModelsResult : EventProcess\nColorDone
-ProcessObjectModel --> SaveModelsResult : EventProcess\nObjectDone
-ProcessEmotionModel --> SaveModelsResult : EventProcess\nEmotionDone
+ProcessColorModel --> SaveModelsResult : Event\nColors\nDetermined
+ProcessObjectModel --> SaveModelsResult : Event\nObjects\nDetermined
+ProcessEmotionModel --> SaveModelsResult : Event\nEmotions\nDetermined
+ProcessEmotionModel --> SaveModelsResult : Event\nEmotions\nError
 
-SaveModelsResult --> ProcessAssociationsModel : EventGet\nAllTags
-SaveModelsResult --> ProcessUniqueness : Event\nColorSave
-SaveModelsResult --> ProcessUniqueness : Event\nAssociations\nSave
+SaveModelsResult --> ProcessAssociationsModel : Event\nEmotionAndObject\nDetermined
+SaveModelsResult --> ProcessUniqueness : Event\nColors\nRecorded
+SaveModelsResult --> ProcessUniqueness : Event\nAssociations\nRecorded
 
 
-ProcessAssociationsModel -right-> SaveModelsResult : EventProcess\nAssociationsDone
+ProcessAssociationsModel -right-> SaveModelsResult : Event\nAssociations\nDetermined
 
-ProcessUniqueness --> SaveUniquenessResult : Event\nProcess\nColor\nUniqueness\nDone
-ProcessUniqueness --> SaveUniquenessResult : Event\nProcess\nTags\nUniqueness\nDone
-ProcessUniqueness --> SaveUniquenessResult : Event\nProcess\nOverall\nUniqueness\nDone
+ProcessUniqueness --> SaveUniquenessResult : EventColor\nUniqueness\nDetermined
+ProcessUniqueness --> SaveUniquenessResult : EventTags\nUniqueness\nDetermined
+ProcessUniqueness --> SaveUniquenessResult : EventOverall\nUniqueness\nDetermined
 
-SaveModelsResult -down-> ShowResult : Event\nColorSave
-SaveModelsResult -down-> ShowResult : Event\nObjectSave
-SaveModelsResult -down-> ShowResult : Event\nEmotionSave
-SaveUniquenessResult -right-> ShowResult : EventOverallUniquenessSave
-SaveUniquenessResult -right-> ShowResult : EventTagsUniquenessSave
-SaveUniquenessResult -right-> ShowResult : EventOverallUniquenessSave
+SaveModelsResult -down-> ShowResult : Event\nColors\nRecorded
+SaveModelsResult -down-> ShowResult : Event\nObject\nRecorded
+SaveModelsResult -down-> ShowResult : Event\nEmotion\nRecorded
+SaveModelsResult -down-> ShowResult : Event\nAssociations\nRecorded
+SaveUniquenessResult -right-> ShowResult : EventOverallUniquenessRecorded
+SaveUniquenessResult -right-> ShowResult : EventTagsUniquenessRecorded
+SaveUniquenessResult -right-> ShowResult : EventOverallUniquenessRecorded
 
 
 @enduml

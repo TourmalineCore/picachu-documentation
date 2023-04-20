@@ -1,7 +1,8 @@
 # PiCachu.Documentaion
 ## system components diagram
 
-```plantuml
+
+```puml
 !include system_components_diagram.puml
 ```
 

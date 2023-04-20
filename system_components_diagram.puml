@@ -40,7 +40,7 @@ Rel_D(UI, API, " ", "")
 Rel_D(API, RequestExchange, " ", "")
 Rel_L(API, S3, "POST", "save photo")
 Rel_U(API, DB, " ", "")
-Rel_L(RequestExchange, ColorServiceQueue, "GetNewPhoto", "photo_id",$tags ="event")
+Rel_L(RequestExchange, ColorServiceQueue, "message", "photo_id")
 Rel_R(ColorService, ColorServiceQueue, "listen", "")
 Rel_U(ColorService, S3, "GET", "photo")
 

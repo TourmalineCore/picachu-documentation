@@ -1,0 +1,31 @@
+@startuml
+[*] --> SaveNewPhoto : EventNewPhoto
+SaveNewPhoto --> ProcessColorModel: EventNew\nPhotoSave
+SaveNewPhoto --> ProcessObjectModel : EventNew\nPhotoSave
+SaveNewPhoto --> ProcessEmotionModel : EventNew\nPhotoSave
+
+ProcessColorModel --> SaveModelsResult : EventProcess\nColorDone
+ProcessObjectModel --> SaveModelsResult : EventProcess\nObjectDone
+ProcessEmotionModel --> SaveModelsResult : EventProcess\nEmotionDone
+
+SaveModelsResult --> ProcessAssociationsModel : EventGet\nAllTags
+SaveModelsResult --> ProcessUniqueness : Event\nColorSave
+SaveModelsResult --> ProcessUniqueness : Event\nAssociations\nSave
+
+
+ProcessAssociationsModel -right-> SaveModelsResult : EventProcess\nAssociationsDone
+
+ProcessUniqueness --> SaveUniquenessResult : Event\nProcess\nColor\nUniqueness\nDone
+ProcessUniqueness --> SaveUniquenessResult : Event\nProcess\nTags\nUniqueness\nDone
+ProcessUniqueness --> SaveUniquenessResult : Event\nProcess\nOverall\nUniqueness\nDone
+
+SaveModelsResult -down-> ShowResult : Event\nColorSave
+SaveModelsResult -down-> ShowResult : Event\nObjectSave
+SaveModelsResult -down-> ShowResult : Event\nEmotionSave
+SaveUniquenessResult -right-> ShowResult : EventOverallUniquenessSave
+SaveUniquenessResult -right-> ShowResult : EventTagsUniquenessSave
+SaveUniquenessResult -right-> ShowResult : EventOverallUniquenessSave
+
+
+@enduml
+

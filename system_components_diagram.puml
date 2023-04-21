@@ -26,14 +26,16 @@ Container(ModelsQueuesDLX, "Models\nQueuesDLX", "", "",$tags ="exchange")
 Container(DelayedRetryQueueDLX, "Delayed\nRetry\nQueueDLX", "", "",$tags ="exchange")
 
 Container(ResultService, "Result\nService", "", "")
-ContainerQueue(ModelsDeterminedQueue, "Models\nDetermined\nQueue", "", "",$tags = "queue")
+ContainerQueue(FeaturesDeterminedQueue, "Features\nDetermined\nQueue", "", "",$tags = "queue")
 
 ContainerQueue(AssociationsQueue, "Associations\nQueue", "", "",$tags = "queue")
 Container(AssociationsService, "Associations\nService", "", "",$tags="neural_network")
 
 Container(UniquenessService, "Uniqueness\nService", "", "")
-ContainerQueue(ModelsRecordedQueue, "Models\nRecorded\nQueue", "", "",$tags = "queue")
+ContainerQueue(FeaturesReadyСountUniquenessQueue, "FeaturesReady\nСountUniqueness\nQueue", "", "",$tags = "queue")
 ContainerQueue(UniquenessRecordedQueue, "Uniqueness\nRecorded\nQueue", "", "",$tags = "queue")
+ContainerQueue(FeaturesRecordedQueue, "Features\nRecorded\nQueue", "", "",$tags = "queue")
+
 
 Rel_D(UI, API, "EventNew\nPhotoReceived", "",$tags ="event")
 
@@ -46,8 +48,8 @@ Rel_L(RequestExchange, ColorServiceQueue, "EventNew\nPhotoSaved", "",$tags ="eve
 Rel_R(ColorService, ColorServiceQueue, "listen", "")
 Rel_U(ColorService, S3, "GET", "photo")
 
-Rel(ColorService, ModelsDeterminedQueue, "Event\nColors\nDetermined", "",$tags ="event")
-Lay_U(ModelsDeterminedQueue,ColorServiceQueue)
+Rel(ColorService, FeaturesDeterminedQueue, "Event\nColors\nDetermined", "",$tags ="event")
+Lay_U(FeaturesDeterminedQueue,ColorServiceQueue)
 
 
 Lay_U(AssociationsQueue,ColorServiceQueue)
@@ -72,27 +74,31 @@ Lay_R(DelayedRetryQueue,ModelsQueuesDLX)
 Lay_U(DelayedRetryQueueDLX,ColorService)
 
 Rel(DelayedRetryQueueDLX, AssociationsService, " ", "")
-Rel_U(AssociationsService, ModelsDeterminedQueue, "Event\nAssociations\nDetermined", "",$tags ="event")
+Rel_U(AssociationsService, FeaturesDeterminedQueue, "Event\nAssociations\nDetermined", "",$tags ="event")
 
-Rel_L(ResultService, ModelsDeterminedQueue, "listen", "")
+Rel_L(ResultService, FeaturesDeterminedQueue, "listen", "")
+Rel(ResultService, FeaturesRecordedQueue, "EventColors\nRecorded", "",,$tags ="event")
 
 Rel_D(ResultService, AssociationsQueue, "Event\nEmotionAndObject\nDetermined", $tags ="event")
 Rel_D(ResultService, DB_tags, " ", "")
 
-Rel_R(ResultService, ModelsRecordedQueue, "EventColors\nRecorded", "",$tags ="event")
-Rel_D(UniquenessService, ModelsRecordedQueue, "listen", "")
+Rel_R(ResultService, FeaturesReadyСountUniquenessQueue, "Event\nColorsReady\nСountUniqueness", "",$tags ="event")
+Rel_D(UniquenessService, FeaturesReadyСountUniquenessQueue, "listen", "")
 
 Rel_D(UniquenessService, ResultService, "GET", "tags from DB")
 
 Rel_U(UniquenessService,UniquenessRecordedQueue ,  "EventColors\nUniquenessRecorded",$tags ="event")
 
-Lay_U(UniquenessService,ModelsRecordedQueue)
+Lay_U(UniquenessService,FeaturesReadyСountUniquenessQueue)
 Lay_R(RequestExchange,UniquenessService)
 
+
 Rel_R(API, UniquenessRecordedQueue,  "listen", "")
-Rel_R(API, ModelsRecordedQueue,  "listen", "")
+Rel_R(API, FeaturesRecordedQueue,  "listen", "")
 
 Rel_U(UniquenessService,API ,  "GET", "gallery photos ids\nby source photo id")
+Lay_D(FeaturesReadyСountUniquenessQueue,FeaturesRecordedQueue)
+
 
 SHOW_LEGEND(false)
 @enduml

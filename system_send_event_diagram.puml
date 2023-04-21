@@ -9,8 +9,8 @@ ProcessObjectModel --> SaveModelsResult : Event\nObjects\nDetermined
 ProcessEmotionModel --> SaveModelsResult : Event\nEmotions\nDetermined
 
 SaveModelsResult --> ProcessAssociationsModel : Event\nEmotionAndObject\nDetermined
-SaveModelsResult --> ProcessUniqueness : Event\nColors\nRecorded
-SaveModelsResult --> ProcessUniqueness : Event\nAssociations\nRecorded
+SaveModelsResult --> ProcessUniqueness : EventColors\nReadyСount\nUniqueness
+SaveModelsResult --> ProcessUniqueness : EventTags\nReadyСount\nUniqueness
 
 
 ProcessAssociationsModel -right-> SaveModelsResult : Event\nAssociations\nDetermined
@@ -23,7 +23,7 @@ SaveModelsResult -down-> ShowResult : Event\nColors\nRecorded
 SaveModelsResult -down-> ShowResult : Event\nObject\nRecorded
 SaveModelsResult -down-> ShowResult : Event\nEmotion\nRecorded
 SaveModelsResult -down-> ShowResult : Event\nAssociations\nRecorded
-SaveUniquenessResult -right-> ShowResult : EventOverallUniquenessRecorded
+SaveUniquenessResult -right-> ShowResult : EventColorslUniquenessRecorded
 SaveUniquenessResult -right-> ShowResult : EventTagsUniquenessRecorded
 SaveUniquenessResult -right-> ShowResult : EventOverallUniquenessRecorded
 

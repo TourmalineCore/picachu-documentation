@@ -35,7 +35,9 @@ Container(UniquenessService, "Uniqueness\nService", "", "")
 ContainerQueue(ModelsRecordedQueue, "Models\nRecorded\nQueue", "", "",$tags = "queue")
 ContainerQueue(UniquenessRecordedQueue, "Uniqueness\nRecorded\nQueue", "", "",$tags = "queue")
 
-Rel_D(UI, API, " ", "")
+Rel_D(UI, API, "EventNew\nPhotoReceived", "",$tags ="event")
+
+Rel_U(API, UI, "Event\nInformation\nUpdated", "",$tags ="event")
 
 Rel_D(API, RequestExchange, " ", "")
 Rel_L(API, S3, "POST", "save photo")

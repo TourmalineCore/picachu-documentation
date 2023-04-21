@@ -7,7 +7,6 @@ SaveNewPhoto --> ProcessEmotionModel : EventNew\nPhotoSaved
 ProcessColorModel --> SaveModelsResult : Event\nColors\nDetermined
 ProcessObjectModel --> SaveModelsResult : Event\nObjects\nDetermined
 ProcessEmotionModel --> SaveModelsResult : Event\nEmotions\nDetermined
-ProcessEmotionModel --> SaveModelsResult : Event\nEmotions\nError
 
 SaveModelsResult --> ProcessAssociationsModel : Event\nEmotionAndObject\nDetermined
 SaveModelsResult --> ProcessUniqueness : Event\nColors\nRecorded

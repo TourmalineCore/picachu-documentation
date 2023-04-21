@@ -31,7 +31,7 @@ ContainerQueue(FeaturesDeterminedQueue, "Features\nDetermined\nQueue", "", "",$t
 ContainerQueue(AssociationsQueue, "Associations\nQueue", "", "",$tags = "queue")
 Container(AssociationsService, "Associations\nService", "", "",$tags="neural_network")
 
-Container(UniquenessService, "Uniqueness\nService", "", "")
+Container(UniquenessService, "Uniqueness\nService", "the service calculates\nthree types of uniqueness \n1.ColorUniqueness\n2.TagsUniqueness\n3.OverallUniqueness}", "")
 ContainerQueue(FeaturesReadyСountUniquenessQueue, "FeaturesReady\nСountUniqueness\nQueue", "", "",$tags = "queue")
 ContainerQueue(UniquenessRecordedQueue, "Uniqueness\nRecorded\nQueue", "", "",$tags = "queue")
 ContainerQueue(FeaturesRecordedQueue, "Features\nRecorded\nQueue", "", "",$tags = "queue")

@@ -16,8 +16,6 @@ Container(ServerSentEvent, "ServerSentEvent", "", "")
 ContainerQueue(ColorServiceQueue, "Color\nService\nQueue", "the system starts\n three queues\nfor each model\n1.ColorQueue\n2.EmotionQueue\n3.ObjectQueue}", "",$tags = "queue")
 ContainerQueue(AssociationsServiceQueue, "Associations\nService\nQueue", "", "",$tags = "queue")
 
-
-
 ContainerDb(S3, "S3", "", "",$tags="storage")
 ContainerDb(DB_api, "DB_api", "", "",$tags="database")
 ContainerDb(Associations_DB, "Associations_DB", "", "",$tags="database")
@@ -30,26 +28,26 @@ Container(AssociationsManager, "Associations\nManager", "", "")
 
 
 Container(RequestExchange, "Request\nExchange", "", "", $tags ="exchange")
-Container(ColorDeterminedExchange, "Color\nDetermined\nExchange", "", "", $tags ="exchange")
-Container(UniquenessDeterminedExchange, "Uniqueness\nDetermined\nExchange", "", "", $tags ="exchange")
+Container(ColorDeterminedExchange, "ColorDeterminedExchange", "the system starts four \nexchange for each model\n1.ColorDeterminedExchange\n2.EmotionDeterminedExchange\n3.ObjectDeterminedExchange\n4.AssociationDeterminedExchange", "", $tags ="exchange")
+Container(UniquenessDeterminedExchange, "UniquenessDeterminedExchange", "the system starts four \nexchange for each type uniquenessn\n1.ColorUniqueness\n2.TagsUniqueness\n3.OverallUniqueness", "", $tags ="exchange")
 
-Container(UniquenessSavedExchange, "Uniqueness\nSaved\nExchange", "", "", $tags ="exchange")
-ContainerQueue(UniquenessSavedQueue, "Uniqueness\nSavedQueue", "", "",$tags = "queue")
+Container(UniquenessSavedExchange, "UniquenessSavedExchange", "the system starts four \nexchange for each model\n1.ColorUniqueness\n2.TagsUniqueness\n3.OverallUniqueness", "", $tags ="exchange")
+ContainerQueue(UniquenessSavedQueue, "Uniqueness\nSavedQueue", "the system starts four\n queues for type uniqueness\n1.ColorUniqueness\n2.TagsUniqueness\n3.OverallUniqueness", "",$tags = "queue")
 
 
 Container(ModelsQueuesDLX, "Models\nQueuesDLX", "", "",$tags ="exchange")
 Container(DelayedRetryQueueDLX, "Delayed\nRetry\nQueueDLX", "", "",$tags ="exchange")
 
-ContainerQueue(ColorsDeterminedForAPIQueue, "ColorsDetermined\nForAPIQueue", "", "",$tags = "queue")
-ContainerQueue(ColorsDeterminedForUniquenessQueue, "ColorsDetermined\nForUniquenessQueue", "", "",$tags = "queue")
+ContainerQueue(ColorsDeterminedForAPIQueue, "ColorsDeterminedForAPIQueue", "the system starts four\n queues for each model\n1.ColorQueue\n2.EmotionQueue\n3.ObjectQueue\n4.AssociationQueue", "",$tags = "queue")
+ContainerQueue(ColorsDeterminedForUniquenessQueue, "ColorsDetermined\nForUniquenessQueue", "the system starts two\n queues for each model\n1.ColorQueue\n2.AssociationQueue", "",$tags = "queue")
 
 Container(TagsDeterminedForAssociationsExchange, "TagsDetermined\nForAssociations\nExchange", "", "", $tags ="exchange")
 
 ContainerQueue(ObjectDeterminedForAssociationsQueue, "ObjectDetermined\nFornAssociationsQueue", "", "",$tags = "queue")
 Container(AssociationsService, "Associations\nService", "", "",$tags="neural_network")
 
-Container(UniquenessService, "Uniqueness\nService", "the service calculates\nthree types of uniqueness \n1.ColorUniqueness\n2.TagsUniqueness\n3.OverallUniqueness}", "")
-ContainerQueue(UniquenessDeterminedQueue, "Uniqueness\nDetermined\nQueue", "", "",$tags = "queue")
+Container(UniquenessService, "Uniqueness\nService", "the service calculates\nthree types of uniqueness \n1.ColorUniqueness\n2.TagsUniqueness\n3.OverallUniqueness", "")
+ContainerQueue(UniquenessDeterminedQueue, "UniquenessDeterminedQueue", "the system starts four\n queues for type uniqueness\n1.ColorUniqueness\n2.TagsUniqueness\n3.OverallUniqueness", "",$tags = "queue")
 
 Rel_L(UI, API, "PhotoReceived", "",$tags ="event")
 Rel_D(API, S3, "POST", "save photo")
@@ -121,10 +119,10 @@ Rel_U(TagsDeterminedForAssociationsExchange,AssociationsServiceQueue, " ", "",$t
 
 Rel_L(UniquenessService, ColorsDeterminedForUniquenessQueue, "listen", "")
 
-Rel_R(UniquenessService, UniquenessDeterminedExchange, " ", "")
+Rel_R(UniquenessService, UniquenessDeterminedExchange, "ColorUniqueness\nDetermined", "",$tags ="event")
 
 Lay_L(ColorsDeterminedForUniquenessQueue,DelayedRetryQueue)
-Rel_R(UniquenessDeterminedExchange, UniquenessDeterminedQueue, " ", "")
+Rel_R(UniquenessDeterminedExchange, UniquenessDeterminedQueue, " ", "",,$tags ="event")
 
 Rel_R(API, UniquenessDeterminedQueue, " ", "")
 
@@ -140,7 +138,6 @@ Rel_U(ServerSentEvent, UI, " ", "")
 Rel_R(ServerSentEvent, UniquenessSavedQueue, "listen", "")
 Rel_D(UniquenessSavedExchange, UniquenessSavedQueue, " ", "",$tags ="event")
 Rel_R(API,UniquenessSavedExchange, " ", "",$tags ="event")
-
 
 SHOW_LEGEND(false)
 @enduml

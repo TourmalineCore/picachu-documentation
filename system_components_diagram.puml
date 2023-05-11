@@ -13,102 +13,102 @@ Container(UI, "UI", "", "")
 Container(API, "API", "", "")
 Container(ServerSentEvent, "ServerSentEvent", "", "")
 
-ContainerQueue(ColorServiceQueue, "Color\nService\nQueue", "the system starts\n three queues\nfor each model\n1.ColorQueue\n2.EmotionQueue\n3.ObjectQueue}", "",$tags = "queue")
+ContainerQueue(ModelServiceQueue, "ModelServiceQueue", "for each model its own queue\n1.ColorServiceQueue\n2.EmotionServiceQueue\n3.ObjectServiceQueue", "",$tags = "queue")
 ContainerQueue(AssociationsServiceQueue, "Associations\nService\nQueue", "", "",$tags = "queue")
 
 ContainerDb(S3, "S3", "", "",$tags="storage")
 ContainerDb(DB_api, "DB_api", "", "",$tags="database")
 ContainerDb(Associations_DB, "Associations_DB", "", "",$tags="database")
-ContainerDb(Colors_DB, "Colors_DB", "", "",$tags="database")
+ContainerDb(Model_DB, "Model_DB", "for each model its own DB\n1.Color_DB\n2.Emotion_DB\n3.Object_DB", "",$tags="database")
 
 ContainerQueue(DelayedRetryQueue, "Delayed\nRetry\nQueue", "", "",  $tags = "queue")
-Container(ColorService, "Color\nService", "the system starts\n three models\n1.ColorModel\n2.EmotionModel\n3.ObjectModel}", "",$tags="neural_network")
+Container(ModelService, "ModelService", "there are three models\n1.ColorService\n2.EmotionService\n3.ObjectService", "",$tags="neural_network")
 
 Container(AssociationsManager, "Associations\nManager", "", "")
 
 
 Container(RequestExchange, "Request\nExchange", "", "", $tags ="exchange")
-Container(ColorDeterminedExchange, "ColorDeterminedExchange", "the system starts four \nexchange for each model\n1.ColorDeterminedExchange\n2.EmotionDeterminedExchange\n3.ObjectDeterminedExchange\n4.AssociationDeterminedExchange", "", $tags ="exchange")
-Container(UniquenessDeterminedExchange, "UniquenessDeterminedExchange", "the system starts four \nexchange for each type uniquenessn\n1.ColorUniqueness\n2.TagsUniqueness\n3.OverallUniqueness", "", $tags ="exchange")
+Container(ModelDeterminedExchange, "ModelDeterminedExchange", "for each model its own exchange\n1.ColorDeterminedExchange\n2.EmotionDeterminedExchange\n3.ObjectDeterminedExchange\n4.AssociationDeterminedExchange", "", $tags ="exchange")
+Container(UniquenessDeterminedExchange, "UniquenessDeterminedExchange", "for each type uniqueness\nits own exchange\n1.ColorUniquenessDeterminedExchange\n2.TagsUniquenessDeterminedExchange\n3.OverallUniquenessDeterminedExchange", "", $tags ="exchange")
 
-Container(UniquenessSavedExchange, "UniquenessSavedExchange", "the system starts four \nexchange for each model\n1.ColorUniqueness\n2.TagsUniqueness\n3.OverallUniqueness", "", $tags ="exchange")
-ContainerQueue(UniquenessSavedQueue, "Uniqueness\nSavedQueue", "the system starts four\n queues for type uniqueness\n1.ColorUniqueness\n2.TagsUniqueness\n3.OverallUniqueness", "",$tags = "queue")
+Container(UniquenessSavedExchange, "UniquenessSavedExchange", "for each type uniqueness\nits own exchange\n1.ColorUniquenessSavedExchange\n2.TagsUniquenessSavedExchange\n3.OverallUniquenessSavedExchange", "", $tags ="exchange")
+ContainerQueue(UniquenessSavedQueue, "UniquenessSavedQueue", "for each type uniqueness\nits own queue\n1.ColorUniquenessSavedQueue\n2.TagsUniquenessSavedQueue\n3.OverallUniquenessSavedQueue", "",$tags = "queue")
 
 
 Container(ModelsQueuesDLX, "Models\nQueuesDLX", "", "",$tags ="exchange")
 Container(DelayedRetryQueueDLX, "Delayed\nRetry\nQueueDLX", "", "",$tags ="exchange")
 
-ContainerQueue(ColorsDeterminedForAPIQueue, "ColorsDeterminedForAPIQueue", "the system starts four\n queues for each model\n1.ColorQueue\n2.EmotionQueue\n3.ObjectQueue\n4.AssociationQueue", "",$tags = "queue")
-ContainerQueue(ColorsDeterminedForUniquenessQueue, "ColorsDetermined\nForUniquenessQueue", "the system starts two\n queues for each model\n1.ColorQueue\n2.AssociationQueue", "",$tags = "queue")
+ContainerQueue(ColorsDeterminedForAPIQueue, "ModelForAPIQueue", "there are three queues for API\n1.ColorForAPIQueue\n2.EmotionForAPIQueue\n3.ObjectForAPIQueue\n4.AssociationForAPIQueue", "",$tags = "queue")
+ContainerQueue(ModelForUniquenessQueue, "ModelForUniquenessQueue", "there are three queues for uniqueness\n1.ColorForUniquenessQueue\n2.AssociationForUniquenessQueue", "",$tags = "queue")
 
 Container(TagsDeterminedForAssociationsExchange, "TagsDetermined\nForAssociations\nExchange", "", "", $tags ="exchange")
 
-ContainerQueue(ObjectDeterminedForAssociationsQueue, "ObjectDetermined\nFornAssociationsQueue", "", "",$tags = "queue")
+ContainerQueue(ModelForAssociationsQueue, "ModelForAssociationsQueue", "there are three queues for uniqueness\n1.ObjectForUniquenessQueue\n2.EmotionForUniquenessQueue", "",$tags = "queue")
 Container(AssociationsService, "Associations\nService", "", "",$tags="neural_network")
 
-Container(UniquenessService, "Uniqueness\nService", "the service calculates\nthree types of uniqueness \n1.ColorUniqueness\n2.TagsUniqueness\n3.OverallUniqueness", "")
-ContainerQueue(UniquenessDeterminedQueue, "UniquenessDeterminedQueue", "the system starts four\n queues for type uniqueness\n1.ColorUniqueness\n2.TagsUniqueness\n3.OverallUniqueness", "",$tags = "queue")
+Container(UniquenessService, "UniquenessService", "the service calculates\nthree types of uniqueness \n1.ColorUniqueness\n2.TagsUniqueness\n3.OverallUniqueness", "")
+ContainerQueue(UniquenessDeterminedQueue, "UniquenessDeterminedQueue", "for each type uniqueness\nits own queue\n1.ColorUniquenessDeterminedQueue\n2.TagsUniquenessDeterminedQueue\n3.OverallUniquenessDeterminedQueue", "",$tags = "queue")
 
-Rel_L(UI, API, "PhotoReceived", "",$tags ="event")
+Rel_L(UI, API, "POST", "send photo")
 Rel_D(API, S3, "POST", "save photo")
-Rel_U(API, DB_api, " ", " ")
+Rel_U(API, DB_api, " ", "")
 Rel_D(API, RequestExchange, "PhotoSaved", "",$tags ="event")
 
-Rel_D(RequestExchange, ColorServiceQueue, " ", "")
-Rel_R(ColorService, ColorServiceQueue, "listen", "")
-Rel_U(ColorService, S3, "GET", "photo")
+Rel_D(RequestExchange, ModelServiceQueue, " ", "",$tags ="event")
+Rel_R(ModelService, ModelServiceQueue, "listen", "")
+Rel_U(ModelService, S3, "GET", "photo")
 
-Rel_R(DelayedRetryQueueDLX, ColorService, " ", "")
+Rel_R(DelayedRetryQueueDLX, ModelService, " ", "")
 Rel_L(DelayedRetryQueueDLX, AssociationsService, " ", "")
 
-Rel_U(ColorService, Colors_DB, " ", "")
+Rel_U(ModelService, Model_DB, " ", "")
 Rel_U(AssociationsService,Associations_DB,  " ", "")
 
-Rel_D(API, ColorService,  "GET", "")
+Rel_D(API, ModelService,  "GET", "")
 Rel_D(API, AssociationsService,  "GET", "")
 
-Lay_R(ColorService,DelayedRetryQueueDLX)
+Lay_R(ModelService,DelayedRetryQueueDLX)
 
 
-Rel_D(ColorService, ModelsQueuesDLX, "on reject", "")
+Rel_D(ModelService, ModelsQueuesDLX, "on reject", "")
 Rel_D(AssociationsService, ModelsQueuesDLX, "on reject", "")
 
 
 Rel_U(ModelsQueuesDLX, DelayedRetryQueue, " ", "")
 
 Lay_U(DelayedRetryQueue,DelayedRetryQueueDLX)
-Lay_U(DelayedRetryQueue,ColorService)
+Lay_U(DelayedRetryQueue,ModelService)
 Rel_U(DelayedRetryQueue, DelayedRetryQueueDLX, " ", "")
 
 
-Rel(ColorService, ColorDeterminedExchange, "ColorsDetermined", "",$tags ="event")
-Rel_D(AssociationsService, ColorDeterminedExchange, "AssociationsDetermined", "",$tags ="event")
+Rel(ModelService, ModelDeterminedExchange, "ColorDetermined\nEmotionDetermined\nObjectDetermined", "",$tags ="event")
+Rel_D(AssociationsService, ModelDeterminedExchange, "AssociationsDetermined", "",$tags ="event")
 
-Lay_D(AssociationsService,ColorDeterminedExchange)
-Lay_D(DelayedRetryQueueDLX,ColorDeterminedExchange)
-Lay_D(DelayedRetryQueue,ColorDeterminedExchange)
-Lay_D(ModelsQueuesDLX,ColorDeterminedExchange)
+Lay_D(AssociationsService,ModelDeterminedExchange)
+Lay_D(DelayedRetryQueueDLX,ModelDeterminedExchange)
+Lay_D(DelayedRetryQueue,ModelDeterminedExchange)
+Lay_D(ModelsQueuesDLX,ModelDeterminedExchange)
 Lay_D(DelayedRetryQueue,ModelsQueuesDLX)
 
 
-Rel_R(ColorDeterminedExchange, ColorsDeterminedForAPIQueue, " ", "",$tags ="event")
-Rel_R(ColorDeterminedExchange, ObjectDeterminedForAssociationsQueue, " ", "",$tags ="event")
-Rel_R(ColorDeterminedExchange, ColorsDeterminedForUniquenessQueue, " ", "",$tags ="event")
+Rel_R(ModelDeterminedExchange, ColorsDeterminedForAPIQueue, " ", "",$tags ="event")
+Rel_R(ModelDeterminedExchange, ModelForAssociationsQueue, " ", "",$tags ="event")
+Rel_R(ModelDeterminedExchange, ModelForUniquenessQueue, " ", "",$tags ="event")
 
 
 
-Lay_R(ColorDeterminedExchange,ObjectDeterminedForAssociationsQueue)
+Lay_R(ModelDeterminedExchange,ModelForAssociationsQueue)
 
 
-Lay_L(ColorsDeterminedForUniquenessQueue,ObjectDeterminedForAssociationsQueue)
+Lay_L(ModelForUniquenessQueue,ModelForAssociationsQueue)
 
-Lay_L(ColorDeterminedExchange,ObjectDeterminedForAssociationsQueue)
+Lay_L(ModelDeterminedExchange,ModelForAssociationsQueue)
 
 
-Lay_D(AssociationsManager,ObjectDeterminedForAssociationsQueue)
+Lay_D(AssociationsManager,ModelForAssociationsQueue)
 Lay_U(AssociationsManager,TagsDeterminedForAssociationsExchange)
 
-Rel_R(AssociationsManager, ObjectDeterminedForAssociationsQueue, "listen", "")
+Rel_R(AssociationsManager, ModelForAssociationsQueue, "listen", "")
 
 Rel_U(AssociationsService, AssociationsServiceQueue, "listen", "")
 
@@ -117,18 +117,18 @@ Rel_U(AssociationsManager, TagsDeterminedForAssociationsExchange, "Tags\nDetermi
 Rel_U(TagsDeterminedForAssociationsExchange,AssociationsServiceQueue, " ", "",$tags ="event")
 
 
-Rel_L(UniquenessService, ColorsDeterminedForUniquenessQueue, "listen", "")
+Rel_L(UniquenessService, ModelForUniquenessQueue, "listen", "")
 
-Rel_R(UniquenessService, UniquenessDeterminedExchange, "ColorUniqueness\nDetermined", "",$tags ="event")
+Rel_R(UniquenessService, UniquenessDeterminedExchange, "ColorUniquenessDetermined\nTagsUniquenessDetermined\nOverallUniquenessDetermined", "",$tags ="event")
 
-Lay_L(ColorsDeterminedForUniquenessQueue,DelayedRetryQueue)
+Lay_L(ModelForUniquenessQueue,DelayedRetryQueue)
 Rel_R(UniquenessDeterminedExchange, UniquenessDeterminedQueue, " ", "",,$tags ="event")
 
 Rel_R(API, UniquenessDeterminedQueue, " ", "")
 
 Rel_R(ServerSentEvent, ColorsDeterminedForAPIQueue, "listen", "")
 
-Lay_D(ColorsDeterminedForAPIQueue,ColorsDeterminedForUniquenessQueue)
+Lay_D(ColorsDeterminedForAPIQueue,ModelForUniquenessQueue)
 
 Lay_R(ServerSentEvent,UI)
 

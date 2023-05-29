@@ -165,7 +165,7 @@ DevOps - ```Maxim```
 ## Test Writing Standard<a name="standard"></a> 
 Since quality assurance depends on the entire team, it is important to describe the rules of test development for their code so that each developer has an understanding and there are no misunderstandings and issues that slow down the work process. The following will describe the rules for writing tests for all sides of development.\
 ***Go to the links below for the details***
- - [Backend](https://github.com/TourmalineCore/picachu-ui/blob/develop/test-guideline-api.md)
+ - [Backend](https://github.com/TourmalineCore/picachu-api/blob/develop/test-guideline-api.md)
  - [Frontend](https://github.com/TourmalineCore/picachu-ui/blob/develop/test-guideline-ui.md)
  
 ## Non-functional testing <a name="nonfunc"></a> 

@@ -115,24 +115,16 @@ Functions:
 For project verification, the traditional testing model will be used in combination with shift-left. Shift-left testing means that QA begins the testing at the prototyping/designing phase. It will verify the design of the system and be used to find any differences with the requirements and to check the usability for the user.
 
 ### Test automation<a name="auto"></a> 
-During the development phase, developers (backend and frontend) write code via TDD approach, then submit to QA review. QA must link tests to test-cases in TMS “Qase”. Linking takes place in a previously prepared environment.
+During the development phase, developers (backend and frontend) write code via TDD approach, then submit to QA review. QA must link tests to test-cases in the Test Management System. Linking takes place in a previously prepared environment.
     - Tests must execute in CI/CD before and after pull request. 
 
 
 ### Testing new releases<a name="new_releases"></a> 
 - **System Verification Test** will be divided into two phases:
-    - Entrance Testing (which is Smoke-Testing) will verify that the main features of the system are working correctly. It will be the minimal happy path of the user flow which is consist of:
-        1. Authentication
-        2. Creating a gallery
-        3. Uploading a photo
-        4. Analysis of the metrics of the photo
+    - Unit testing - all the functionality  (modules and components) of the project is running automatically in [CI/CD](#ci) for both the backend and the frontend to ensure the stability of the system
+        
 
-    - Regression Test will thoroughly verify the operation of the whole system. This testing phase determines that all the requirements in the “PiCachu” have been satisfied.
-    The Regression Test will consist tests selected from the current TMS «Qase» of test cases, will be included:
-        - Specification testing
-        - Functional testing
-        - Usability testing
-        - Compatibility testing (different browsers; different devices)
+    - E2E testing - E2E tests are running on the frontend as the next phase in CI/CD to simulate user interaction with the system as part of happy path scenarios, where the entire user path is tested through the core functionality of the system
 
 
 ## Process of the testing new feature in Agile development model<a name="process"></a> 
@@ -143,7 +135,7 @@ During the development phase, developers (backend and frontend) write code via T
 
 ### Design <a name="design"></a> 
 - Testing usability of designed feature and identifying inconsistencies with requirements
-- QA-Engineers write test-cases on a new feature. Test-cases storage in TMS “Qase”.
+- QA-Engineers write test-cases on a new feature. Test-cases storage in Test Management System.
 
 ### Develop <a name="develop"></a> 
 - Developers use TDD (Test Driven Development), so it includes writing tests before writing the actual code.
@@ -172,7 +164,7 @@ Since quality assurance depends on the entire team, it is important to describe 
 In addition to the aspects of functional testing, it is important to mention that testing can also be non-functional and benefit product quality. 
 
 ### Linting <a name="linting"></a> 
-One example that applies to non-functional testing is linter, which ensures code cleanliness - so we always set it up and run it first thing in [CI/CD](#ci) after any commits - we have Pull Request blocked if the linking didn't go through, so the dirty code doesn't get into the main branch and the developer fixes the problem and writes his code nicely.
+One example that applies to non-functional testing is linter, which ensures code cleanliness.
 What a linter does?
 Linter, based on given rules, recycles the code in a second:
 
@@ -196,7 +188,8 @@ It's crucial to use the 'code coverage' in the backend part of project.
 CI/CD plays a critical role in software testing by providing an automated framework for continuous testing and deployment.
 
 - One way to prevent the leakage of low-quality code is to use an [autolinter](#linting) when creating pull requests. 
-- Another way to ensure code quality is to run all the tests automatically after every commit.
+We set it up and run it as first thing in CI/CD after any commits - we have Pull Request blocked if the linting didn't go through, so the dirty code doesn't get into the main branch and the developer fixes the problem and writes his code nicely.
+- Another way to ensure code quality is to run all the tests automatically after every commit. Unit and E2E tests are in the action at that point.
 
 So we must configure autolinter and automatical executing of all the tests in the "PiCachu" pipelines to provide high code quality.
 
@@ -209,11 +202,7 @@ The first (from the bottom) and most valuable level for reliable support and dev
 The second level of our Testing Pyramid is the Integration Testing that controls the correct connection between the services of the system and the interaction of the system with DataBase. Integration Testing provides the reliability and confidence that our subsystems and modules interact with each other correctly.
 
 - **E2E (or Entrance) Tests**   
-The third level of our Testing Pyramid is the E2E (end-to-end) or, as it is often called, Entrance Testing where system requirements are validated and user flow is checked. There we will test the basic scenario of the user’s interaction with the system and only happy path that includes all the main features of the system: 
-    1. Authentication 
-    2. Creating a gallery
-    3. Uploading a photo
-    4. Analysis of the metrics of the photo 
+The third level of our Testing Pyramid is the E2E (end-to-end) or, as it is often called, Entrance Testing where system requirements are validated and user flow is checked. There we will test the basic scenario of the user’s interaction with the system and only happy path that includes all the main features of the system.
 
 
 

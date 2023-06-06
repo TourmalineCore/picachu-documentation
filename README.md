@@ -174,14 +174,6 @@ Linter, based on given rules, recycles the code in a second:
 - in other languages, may capitalize function names to make them easier to read;
 - removes extra spaces and empty lines.
 
-### Tests coverage <a name="coverage"></a> 
-As the project grows, it becomes difficult to determine which code is tested and which is not, although this need arises regularly. This usually happens when there are different people in the team and not all of them are responsible for writing tests. In this case the quality of the project may suffer.
-
-The testability of the code can be measured. The "code coverage" metric is used for this purpose. Code coverage is analyzed by test frameworks which count the ratio of lines involved in tests to all the lines in the source code.
-
-It's crucial to use the 'code coverage' in the backend part of project. 
-[**Click here to read the details about using Tests Coverage in the PiCachu API test-guideline**](https://github.com/TourmalineCore/picachu-api/blob/develop/test-guideline-api.md) 
-
 
 
 ## CI/CD <a name="ci"></a> 

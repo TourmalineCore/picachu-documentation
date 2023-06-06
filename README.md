@@ -17,7 +17,6 @@
 - [Test Writing Standard](#standard)
 - [Non-functional testing](#nonfunc)
   - [Linting](#linting)
-  - [Tests coverage](#coverage)
 - [CI/CD](#ci)
 - [Testing Pyramid](#pyramid)
 

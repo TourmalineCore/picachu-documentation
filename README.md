@@ -1,5 +1,5 @@
 
-# Documentation about PiCachu project 
+# Documentation about Tourmanique project
 # Rules and Patterns of the API testing
 - [Dictionary](#dict)
 - [Objectives of the Test](#objectives)
@@ -34,16 +34,16 @@
 Examples: Performance, Compatibility (browsers and devices),Localization testing, e.t.c.
 
 ## Objectives of the Test<a name="objectives"></a> 
-The main task, for which test strategy is written, is to regulate and document important rules for automating the testing of the whole project. Since all developers are involved in this process, this should be described in the Test Plan (Test Strategy) document. Also, this document describes the test strategy for the "PiCachu" project and includes information on what is to be tested, and how the testing is to be accomplished (test methodology). Specifically, this document describes the tests to be performed, the testing schedule, resources required, entry criteria, exit criteria, dependencies, test tools, metrics and the Test Plan Requirements Traceability Matrix. This is a living test plan and must be changed to reflect Core Team needs and requirements as they arise.
-The main purpose of this test is to verify the requirements for the "PiCachu" project.
+The main task, for which test strategy is written, is to regulate and document important rules for automating the testing of the whole project. Since all developers are involved in this process, this should be described in the Test Plan (Test Strategy) document. Also, this document describes the test strategy for the "Tourmanique" project and includes information on what is to be tested, and how the testing is to be accomplished (test methodology). Specifically, this document describes the tests to be performed, the testing schedule, resources required, entry criteria, exit criteria, dependencies, test tools, metrics and the Test Plan Requirements Traceability Matrix. This is a living test plan and must be changed to reflect Core Team needs and requirements as they arise.
+The main purpose of this test is to verify the requirements for the "Tourmanique" project.
 
 ## Project description<a name="description"></a> 
-PiCachu is a service that allows you to create your own gallery and collect them. In every gallery you can upload photos and take the uniqueness of them by 4 ML features: colors, emotions, objects and associations. The uniqueness value depends and is calculated based on other photos within the gallery
+Tourmanique is a service that allows you to create your own gallery and collect them. In every gallery you can upload photos and take the uniqueness of them by 4 ML features: colors, emotions, objects and associations. The uniqueness value depends and is calculated based on other photos within the gallery
 
 ## Project architecture<a name="arch"></a> 
 Our system consists of the 8 micro-services:
 
-- [Backend](https://github.com/TourmalineCore/picachu-api)\
+- [Backend](https://github.com/TourmalineCore/tourmanique-api)\
 Main API (REST) service for executing CRUD operations and (managing all the actions of it's services) takes a role of the bridge between each ML model services\
 Functions:
     - receive photos from the user
@@ -51,12 +51,12 @@ Functions:
     - send photos for processing
     - records information about the photo in the database
     - request processing results from Result Service
-- [Frontend](https://github.com/TourmalineCore/picachu-ui)\
+- [Frontend](https://github.com/TourmalineCore/tourmanique-ui)\
 Projects GUI made by design in Figma\
 Functions:
     - providing an interface to the user
     - communicating with the API
-- [Color Service](https://github.com/TourmalineCore/picachu-color-service)\
+- [Color Service](https://github.com/TourmalineCore/tourmanique-color-service)\
 Service responsible for determining the dominant colors of the photo\
 Functions:
     - accepts a photo processing request from the queue
@@ -64,7 +64,7 @@ Functions:
     - determine the dominant colors n the photo
     - transfer results to the queue with results
 
-- [Emotion Service](https://github.com/TourmalineCore/picachu-emotion-service)\
+- [Emotion Service](https://github.com/TourmalineCore/tourmanique-emotion-service)\
 Service responsible for determining the main emotion of the photo\
 Functions:
     - accepts a photo processing request from the queue
@@ -72,7 +72,7 @@ Functions:
     - determination of the photo emotion
     - transfer results to the queue with results
 
-- [Object Service](https://github.com/TourmalineCore/picachu-object-service)\
+- [Object Service](https://github.com/TourmalineCore/tourmanique-object-service)\
 Service responsible for identifying objects in the photo\
 Functions:
     - accepts a request to process a photo from the queue
@@ -80,20 +80,20 @@ Functions:
     - identification of objects on the photo
     - transfers the results to the queue with results
 
-- [Association Service](https://github.com/TourmalineCore/picachu-association-service)\
+- [Association Service](https://github.com/TourmalineCore/tourmanique-association-service)\
 Service responsible for defining associations to the tags defined by previous models\
 Functions:
     - accepts a photo processing request from the queue
     - determine associations by tags, which appeared in photos after processing by other models
     - transfer the results to the queue with the results
 
-- [Result Service](https://github.com/TourmalineCore/picachu-models-results-service)\
+- [Result Service](https://github.com/TourmalineCore/tourmanique-models-results-service)\
 Service responsible for writing processing results to the database\
 Functions:
     - write the result of processing models to the database
     - provide the endpoint to receive processing results
 
-- [Result Checker Service](https://github.com/TourmalineCore/picachu-models-results-checker)\
+- [Result Checker Service](https://github.com/TourmalineCore/tourmanique-models-results-checker)\
 Service responsible for requesting processing results from Result Service\
 Functions:
     - every few seconds, it asks Result Service for photo id that have all tags except association tags
@@ -156,8 +156,8 @@ DevOps - ```Maxim```
 ## Test Writing Standard<a name="standard"></a> 
 Since quality assurance depends on the entire team, it is important to describe the rules of test development for their code so that each developer has an understanding and there are no misunderstandings and issues that slow down the work process. The following will describe the rules for writing tests for all sides of development.\
 ***Go to the links below for the details***
- - [Backend](https://github.com/TourmalineCore/picachu-api/blob/develop/test-guideline-api.md)
- - [Frontend](https://github.com/TourmalineCore/picachu-ui/blob/develop/test-guideline-ui.md)
+ - [Backend](https://github.com/TourmalineCore/tourmanique-api/blob/develop/test-guideline-api.md)
+ - [Frontend](https://github.com/TourmalineCore/tourmanique-ui/blob/develop/test-guideline-ui.md)
  
 ## Non-functional testing <a name="nonfunc"></a> 
 In addition to the aspects of functional testing, it is important to mention that testing can also be non-functional and benefit product quality. 
@@ -182,7 +182,7 @@ CI/CD plays a critical role in software testing by providing an automated framew
 We set it up and run it as first thing in CI/CD after any commits - we have Pull Request blocked if the linting didn't go through, so the dirty code doesn't get into the main branch and the developer fixes the problem and writes his code nicely.
 - Another way to ensure code quality is to run all the tests automatically after every commit. Unit and E2E tests are in the action at that point.
 
-So we must configure autolinter and automatical executing of all the tests in the "PiCachu" pipelines to provide high code quality.
+So we must configure autolinter and automatical executing of all the tests in the "Tourmanique" pipelines to provide high code quality.
 
 ## Testing Pyramid<a name="pyramid"></a> 
 
